@@ -23,7 +23,7 @@ function App() {
             <div className="container justify-content-center align-items-center lh-sm">
                 <div className='row'>
                     <div className='col-12 text-center'>
-                        <img className='p-3 img-fluid align-self-center w-100' src="letra-j.png" alt="" style={{ maxWidth: '500px' }} />
+                        <img className='p-3 img-fluid align-self-center w-100' src="logo.svg" alt="" style={{ maxWidth: '500px' }} />
                         <h6 className='mb-1'>{people[0].codiname} Lab's</h6>
                     </div>
                     <div className='col-12 mb-5 text-center '>
