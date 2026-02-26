@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './navbar.css'
 import { NavLink, useLocation } from 'react-router-dom'
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguage } from '../../utilities/LanguageContext';
 
 
 function navbar() {
@@ -27,7 +27,7 @@ function navbar() {
             <div className="nav nav-tabs" role="tablist">
                 <NavLink to="/" onClick={scrollMainToBottom} className="nav-link" end>{language === 'pt' ? 'Perfil' : 'Profile'}</NavLink>
                 <NavLink to="/projetos" onClick={scrollMainToBottom} className={(isProjectsRoute || isRepoRoute) ? 'nav-link active' : 'nav-link'}>{language === 'pt' ? 'Projetos' : 'Projects'}</NavLink>
-                
+
                 {isRepoRoute && (
                     <style>{`.nav .nav-link.active { background-color: var(--bs-light) !important; border-bottom: 2px solid var(--bs-light) !important; }`}</style>
                 )}
@@ -36,8 +36,8 @@ function navbar() {
                     <style>{`.nav .nav-link.active { background-color: var(--bs-light) !important; border-bottom: 2px solid var(--bs-light) !important; }`}</style>
                 )}
                 {/* <NavLink to="/disabled" className="nav-link disabled">Modo IA</NavLink> */}
-                
-                
+
+
 
 
             </div>

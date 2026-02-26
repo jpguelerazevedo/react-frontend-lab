@@ -1,11 +1,14 @@
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none;
 }
 
 body {
   font-family: 'Segoe UI';
+
 }
 
 p{
     font-size: 18px;
 }
+

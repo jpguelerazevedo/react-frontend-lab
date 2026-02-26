@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useLanguage } from '../../context/LanguageContext'
+import { useLanguage } from '../../utilities/LanguageContext'
 
 export default function RepoNav() {
     const { language } = useLanguage()

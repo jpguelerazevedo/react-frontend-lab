@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useLanguage } from '../../context/LanguageContext'
-import { post } from '../data/data';
+import { useLanguage } from '../../utilities/LanguageContext'
+import { post } from '../../utilities/data';
 
 function Post() {
     const navigate = useNavigate()
@@ -36,10 +36,10 @@ function Post() {
 
                     <div className='col-12 mt-4 '>
                         <div className='col-12 col-md-10 col-lg-8 mx-auto'>
-                            
+
                             <h2 className='fw-bold text-center mb-2'>{state.title[language]}</h2>
                             <h6 className='text-center mb-4 '>{state.subtitle[language]}</h6>
-                            
+
                         </div>
 
 
@@ -54,7 +54,8 @@ function Post() {
                                 />
                                 <h6 className='text-muted small mb-0 pt-1 fst-italic'>{state.data[language]} - {state.local[language]}</h6>
                             </div>
-                            <p dangerouslySetInnerHTML={{ __html: state.content[language] }} style={{ textAlign: 'justify' }}></p>
+                            <div></div>
+                            <p className='' dangerouslySetInnerHTML={{ __html: state.content[language] }} style={{ textAlign: 'justify' }}></p>
 
                         </div>
                     </div>

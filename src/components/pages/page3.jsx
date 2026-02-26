@@ -1,7 +1,7 @@
 import React from 'react'
-import { post } from '../data/data';
+import { post } from '../../utilities/data';
 import './style.css'
-import { useLanguage } from '../../context/LanguageContext'
+import { useLanguage } from '../../utilities/LanguageContext'
 import { useNavigate } from 'react-router-dom'
 
 function page3() {
@@ -15,16 +15,16 @@ function page3() {
     return (
 
 
-        <div className='row m-3 '>
-            <div className='col-12 p-3 pb-0'>
+        <div className='row m-3 justify-content-center'>
+            <div className='col-12 p-3 text-center'>
                 <h3>{labels.title[language]}</h3>
             </div>
             {post.map((p, index) => {
                 return (
-                    <div key={index} className='col-12 pb-3 pt-3'>
-                        <div className='row align-items-stretch'>
-                            <div className='col-lg-5 col-12 pe-lg-0'>
-                                <img src={p.image.url} alt={p.image.alt} className='img-fluid w-100 h-100 object-fit-cover' />
+                    <div key={index} className='col-12 m-2 ms-0 pb-lg-0'>
+                        <div className='row pt-0'>
+                            <div className='col-lg-5 col-12 pe-1 pe-lg-0'>
+                                <img src={p.image.url} alt={p.image.alt} className='img-fluid w-100 h-100 object-fit-cover ' />
                             </div>
                             <div className='bg-light p-3 mx-auto mx-lg-0 m-lg-3 ms-lg-0 col-lg-6 col-10 d-flex flex-column justify-content-between custom-card-border' >
                                 <div>
@@ -37,7 +37,7 @@ function page3() {
 
                                 <div>
                                     <div className='d-flex align-items-baseline gap-2'>
-                                        <p className='text-muted small mb-0 mb-lg-3 lh-1'>
+                                        <p className='text-muted small mb-0  lh-1'>
                                             {p.data[language]} - {p.local[language]}
                                         </p>
                                         <button className='icon-link btn btn-link ms-auto ms-lg-auto p-0 mb-0 mb-lg-3 pe-lg-3 text-nowrap flex-shrink-0 align-self-baseline' onClick={() => navigate('/inPost', { state: p })}>{labels.viewPost[language]}</button>
