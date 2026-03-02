@@ -24,7 +24,7 @@ function page3() {
                     <div key={index} className='col-12 m-2 ms-0 pb-lg-0'>
                         <div className='row pt-0 p-0 p-lg-1 ps-lg-0'>
                             <div className='col-lg-5 col-12 pe-1 pe-lg-0'>
-                                <img src={p.image.url} alt={p.image.alt} className='img-fluid w-100 h-100 object-fit-cover ' />
+                                <img src={p.image.url} alt={p.image.alt} className='img-fluid w-100 h-100 object-fit-cover border' />
                             </div>
                             <div className='bg-light p-3 mx-auto mx-lg-0 m-lg-3 ms-lg-0 col-lg-7 col-10 d-flex flex-column justify-content-between custom-card-border' >
                                 <div className='d-flex flex-column gap-2'>
