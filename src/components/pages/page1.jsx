@@ -1,11 +1,10 @@
 
 import { people } from '../../utilities/data.jsx'
 import { useLanguage } from '../../utilities/LanguageContext.jsx'
+import { useEffect } from 'react';
 
 function Page1() {
     const { language } = useLanguage()
-    const person = people[0] // Pegando o João (primeiro da lista)
-
 
     const labels = {
         title: { pt: 'Perfil', en: 'Profile' },
@@ -19,6 +18,13 @@ function Page1() {
         lastYear: { pt: 'em 2024', en: 'in 2024' },
         lenguage: { pt: 'Idioma', en: 'Language' },
     }
+
+    useEffect(() => {
+        // Atualiza o título da aba quando a página carrega ou o idioma muda
+        document.title = `JLab - ${labels.title[language]}`;
+    }, [language]);
+
+    const person = people[0] // Pegando o João (primeiro da lista)
 
     const born = (person.born && (person.born[language] || person.born)) || { data: '', city: '', state: '', country: '' }
 

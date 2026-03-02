@@ -1,17 +1,23 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useLanguage } from '../../utilities/LanguageContext';
 
 function Page2() {
+
+    const [githubProjects, setGithubProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
     const { language } = useLanguage();
+
     const labels = {
         title: { pt: 'Projetos', en: 'Projects' },
         descriptionBadge: { pt: 'Descrição', en: 'Description' },
         viewProject: { pt: 'Ver projeto >', en: 'View project >' }
     }
-    const [githubProjects, setGithubProjects] = useState([]);
-    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        // Atualiza o título da aba quando a página carrega ou o idioma muda
+        document.title = `JLab - ${labels.title[language]}`;
+    }, [language]);
 
     useEffect(() => {
         // Busca os repositórios públicos do GitHub do usuário jpguelerazevedo

@@ -1,12 +1,18 @@
-import React from 'react'
 import { post } from '../../utilities/data';
 import './style.css'
+import { useEffect } from 'react';
 import { useLanguage } from '../../utilities/LanguageContext'
 import { useNavigate } from 'react-router-dom'
 
 function page3() {
     const navigate = useNavigate()
     const { language } = useLanguage()
+
+    useEffect(() => {
+            // Atualiza o título da aba quando a página carrega ou o idioma muda
+            document.title = `JLab - ${labels.title[language]}`;
+        }, [language]);
+
     const labels = {
         title: { pt: 'Postagens', en: 'Posts' },
         viewPost: { pt: 'Ler mais >', en: 'Read more >' }
