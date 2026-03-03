@@ -12,6 +12,13 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
+  "reactSnap": {
+    "source": "dist",
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ]
+  },
   "dependencies": {
     "bootstrap": "^5.3.8",
     "react": "^19.2.0",
