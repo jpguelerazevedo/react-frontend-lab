@@ -1,5 +1,6 @@
 import post1 from '../assets/post1.png';
 import post2 from '../assets/post2.png';
+import post3 from '../assets/post3.webp';
 
 export const people = [
     {
@@ -59,6 +60,139 @@ export const people = [
 ];
 
 export const post = [
+    {
+        title: {
+            pt: 'Como o Model Context Protocol muda tudo o que sabemos sobre utilização de IA',
+            en: 'How the Model Context Protocol Changes Everything We Know About AI Usage'
+        },
+        subtitle: {
+            pt: 'Inteligência Artificial',
+            en: 'Artificial Intelligence'
+        },
+        description: {
+            pt: 'O MCP está resolvendo o maior problema das LLMs, a falta de conexão com o mundo real. Entenda como esse protocolo funciona e como ele padroniza a forma como a IA interage com seus arquivos e ferramentas.',
+            en: 'The MCP is solving the biggest problem of LLMs, the lack of connection with the real world. Understand how this protocol works and how it standardizes the way AI interacts with its files and tools.'
+        },
+        content: {
+            pt: `
+<p>Até pouco tempo atrás, o uso de <strong>IA</strong> era limitado a um fluxo de copiar e colar informações. Você pegava um log de erro ou um trecho de código, colava no chat e aguardava uma resposta. Mesmo com o avanço dos agentes, integrar a <strong>IA</strong> ao seu fluxo de trabalho ainda exigia a criação de conectores específicos para cada ferramenta ou banco de dados, o que tornava o processo trabalhoso e difícil de escalar. O <strong>Model Context Protocol (MCP)</strong> surge para resolver esse isolamento, criando um padrão de comunicação que facilita a conexão entre o modelo e as ferramentas que você já usa.</p>
+
+<p>A proposta do <strong>MCP</strong> é simples: em vez de desenvolver uma integração para cada plataforma, utiliza-se uma interface comum. Funciona como um padrão universal onde o "host" (seu editor de código ou aplicativo de chat) se comunica com um "server" (o serviço que acessa seus dados). Isso muda a forma como utilizamos a <strong>IA</strong>, porque o foco deixa de ser a barreira técnica da integração e passa a ser o que a <strong>IA</strong> pode acessar, seja um banco de dados SQL ou seu próprio sistema de arquivos.</p>
+
+<p>Um exemplo prático dessa aplicação é o gerenciamento de diretórios. O servidor de <strong>Filesystem</strong> mostra como a <strong>IA</strong> pode atuar diretamente no seu computador. Com as permissões configuradas, ela consegue navegar por pastas, ler o conteúdo de arquivos e realizar tarefas de organização, como mover documentos para pastas específicas baseando-se no que está escrito neles. Na prática, você pode pedir para a <strong>IA</strong> analisar uma pasta de downloads e agrupar scripts Python em um diretório de projetos e notas fiscais em outro, sem precisar mover um arquivo sequer manualmente.</p>
+
+<p>Para quem trabalha com <strong>Python</strong>, a implementação desses servidores é simplificada pelo SDK <strong>FastMCP</strong>. Abaixo, um exemplo de como estruturar um servidor que permite à <strong>IA</strong> listar, ler e organizar arquivos localmente:</p>
+
+<pre><code>
+<span style="color: #cf222e; font-weight: bold;">from</span> mcp.server.fastmcp <span style="color: #cf222e; font-weight: bold;">import</span> FastMCP
+<span style="color: #cf222e; font-weight: bold;">import</span> os
+<span style="color: #cf222e; font-weight: bold;">import</span> shutil
+
+<span style="color: #6a737d;"># Inicializa o servidor MCP</span>
+mcp = FastMCP("Gerenciador de Arquivos JLab")
+
+@mcp.tool()
+<span style="color: #cf222e; font-weight: bold;">def</span> <span style="color: #8250df; font-weight: bold;">listar_arquivos</span>(diretorio: str) -> list:
+    <span style="color: #6a737d;">"""Lista os arquivos presentes em um diretório específico."""</span>
+    <span style="color: #cf222e; font-weight: bold;">return</span> os.listdir(diretorio)
+
+@mcp.tool()
+<span style="color: #cf222e; font-weight: bold;">def</span> <span style="color: #8250df; font-weight: bold;">organizar_arquivo</span>(origem: str, destino_pasta: str):
+    <span style="color: #6a737d;">"""
+    Move um arquivo para uma pasta específica. 
+    Cria o diretório automaticamente se ele não existir.
+    """</span>
+    <span style="color: #cf222e; font-weight: bold;">if</span> <span style="color: #cf222e; font-weight: bold;">not</span> os.path.exists(destino_pasta):
+        os.makedirs(destino_pasta)
+    
+    nome_arquivo = os.path.basename(origem)
+    caminho_final = os.path.join(destino_pasta, nome_arquivo)
+    
+    shutil.move(origem, caminho_final)
+    <span style="color: #cf222e; font-weight: bold;">return</span> f"Arquivo {nome_arquivo} movido para {destino_pasta}"
+
+@mcp.tool()
+<span style="color: #cf222e; font-weight: bold;">def</span> <span style="color: #8250df; font-weight: bold;">ler_contexto_arquivo</span>(caminho: str) -> str:
+    <span style="color: #6a737d;">"""Lê os primeiros caracteres de um arquivo para identificação de conteúdo."""</span>
+    <span style="color: #cf222e; font-weight: bold;">with</span> open(caminho, 'r', encoding='utf-8') <span style="color: #cf222e; font-weight: bold;">as</span> f:
+        <span style="color: #cf222e; font-weight: bold;">return</span> f.read(500)
+
+<span style="color: #cf222e; font-weight: bold;">if</span> __name__ == "__main__":
+    mcp.run()
+</code></pre>
+
+<p>Com esse servidor rodando, a <strong>IA</strong> ganha a capacidade de executar tarefas operacionais. Ela utiliza a ferramenta de listagem para identificar os arquivos, lê os metadados ou o início do conteúdo para entender o contexto e utiliza a ferramenta de organização para mover os itens. O <strong>MCP</strong> não é apenas mais uma tecnologia para acompanhar, mas sim uma infraestrutura que torna o uso de <strong>IA</strong> mais prático e menos dependente de entradas manuais. Para quem desenvolve automações ou trabalha em projetos de software, adotar esse padrão ajuda a transformar modelos de linguagem em assistentes que realmente interagem com o ambiente de desenvolvimento.</p>
+
+<p>Para explorar outros exemplos de servidores prontos, como integrações com Google Drive, Slack e bancos de dados, acesse o repositório oficial: <a href="https://github.com/modelcontextprotocol/servers/tree/main" target="_blank" rel="noopener noreferrer">github.com/modelcontextprotocol/servers</a></p>
+            `,
+            en: `
+<p>Until recently, using <strong>AI</strong> was limited to a copy-and-paste workflow. You would take an error log or a code snippet, paste it into the chat, and wait for a response. Even with the advancement of agents, integrating <strong>AI</strong> into your workflow still required building connectors for each tool or database, making the process laborious and hard to scale. The <strong>Model Context Protocol (MCP)</strong> addresses this isolation by creating a communication standard that makes it easier to connect the model to the tools you already use.</p>
+
+<p>The MCP's proposal is simple: instead of building an integration for every platform, use a common interface. It acts as a universal standard where the "host" (your code editor or chat application) communicates with a "server" (the service that accesses your data). This changes how we use <strong>AI</strong>, because the focus shifts from the technical barrier of integration to what the <strong>AI</strong> can access, whether it's a SQL database or your filesystem.</p>
+
+<p>A practical example is directory management. The Filesystem server demonstrates how the <strong>AI</strong> can operate directly on your machine. With permissions configured, it can navigate folders, read file contents, and perform organization tasks like moving documents into specific folders based on their contents. In practice, you can ask the <strong>AI</strong> to analyze a downloads folder and group Python scripts into a projects directory and invoices into another, without manually moving a single file.</p>
+
+<p>For Python users, implementing these servers is simplified by the <strong>FastMCP</strong> SDK. Below is an example of structuring a server that lets the <strong>AI</strong> list, read, and organize files locally:</p>
+
+<pre><code>
+<span style="color: #cf222e; font-weight: bold;">from</span> mcp.server.fastmcp <span style="color: #cf222e; font-weight: bold;">import</span> FastMCP
+<span style="color: #cf222e; font-weight: bold;">import</span> os
+<span style="color: #cf222e; font-weight: bold;">import</span> shutil
+
+<span style="color: #6a737d;"># Initialize the MCP server</span>
+mcp = FastMCP("File Manager JLab")
+
+@mcp.tool()
+<span style="color: #cf222e; font-weight: bold;">def</span> <span style="color: #8250df; font-weight: bold;">list_files</span>(directory: str) -> list:
+    <span style="color: #6a737d;">"""Return the files present in a specific directory."""</span>
+    <span style="color: #cf222e; font-weight: bold;">return</span> os.listdir(directory)
+
+@mcp.tool()
+<span style="color: #cf222e; font-weight: bold;">def</span> <span style="color: #8250df; font-weight: bold;">organize_file</span>(source: str, destination_folder: str):
+    <span style="color: #6a737d;">"""
+    Move a file to a specific folder.
+    Create the directory automatically if it does not exist.
+    """</span>
+    <span style="color: #cf222e; font-weight: bold;">if</span> <span style="color: #cf222e; font-weight: bold;">not</span> os.path.exists(destination_folder):
+        os.makedirs(destination_folder)
+
+    filename = os.path.basename(source)
+    final_path = os.path.join(destination_folder, filename)
+
+    shutil.move(source, final_path)
+    <span style="color: #cf222e; font-weight: bold;">return</span> f"File {filename} moved to {destination_folder}"
+
+@mcp.tool()
+<span style="color: #cf222e; font-weight: bold;">def</span> <span style="color: #8250df; font-weight: bold;">read_file_context</span>(path: str) -> str:
+    <span style="color: #6a737d;">"""Read the first characters of a file to identify content context."""</span>
+    <span style="color: #cf222e; font-weight: bold;">with</span> open(path, 'r', encoding='utf-8') <span style="color: #cf222e; font-weight: bold;">as</span> f:
+        <span style="color: #cf222e; font-weight: bold;">return</span> f.read(500)
+
+<span style="color: #cf222e; font-weight: bold;">if</span> __name__ == "__main__":
+    mcp.run()
+</code></pre>
+
+<p>With this server running, the <strong>AI</strong> gains the ability to perform operational tasks. It uses the listing tool to identify files, reads metadata or the start of file contents to understand context, and uses the organize tool to move items. The <strong>MCP</strong> is not just another technology to follow — it is an infrastructure that makes <strong>AI</strong> more practical and less dependent on manual inputs. For developers building automations or working on software projects, adopting this pattern helps turn language models into assistants that truly interact with the development environment.</p>
+
+<p>To explore other ready-made server examples, such as integrations with Google Drive, Slack, and databases, visit the official repository: <a href="https://github.com/modelcontextprotocol/servers/tree/main" target="_blank" rel="noopener noreferrer">github.com/modelcontextprotocol/servers</a></p>
+            `
+        },
+        image: {
+            url: post3,
+            alt: {
+                pt: 'Imagem referente ao post sobre MCP',
+                en: 'Image for the post about MCP'
+            }
+        },
+        data: {
+            pt: '16 de Março de 2026',
+            en: 'March 16, 2026'
+        },
+        local: {
+            pt: 'Vitória, ES',
+            en: 'Vitória, ES'
+        }
+    },
     {
         title: {
             pt: 'Por que utilizar Mocking com Pytest em Sistemas de IA',
@@ -225,4 +359,5 @@ export const post = [
             en: 'Vitória, ES'
         }
     },
+
 ];
