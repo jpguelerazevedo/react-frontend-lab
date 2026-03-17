@@ -63,7 +63,7 @@ export const post = [
     {
         title: {
             pt: 'Como o Model Context Protocol muda tudo o que sabemos sobre utilização de IA',
-            en: 'How the Model Context Protocol Changes Everything We Know About AI Usage'
+            en: 'How the Model Context Protocol changes everything we know about AI usage'
         },
         subtitle: {
             pt: 'Inteligência Artificial',
